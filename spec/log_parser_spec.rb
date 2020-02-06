@@ -27,7 +27,7 @@ RSpec.describe "LogParser" do
 
   describe 'converting to array' do
     it 'should convert the file into an array' do
-       expect(@log_parser.convert_to_array.class).to eq(array)
+       expect(@log_parser.convert_to_array.class).to eq(Array)
     end
   end
 

@@ -6,4 +6,8 @@ class LogParser
     @sorted_data_object = {}
   end
 
+  def convert_to_array
+    @file.read.split("\n")
+  end
+
 end
