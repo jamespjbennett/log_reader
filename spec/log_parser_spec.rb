@@ -37,10 +37,10 @@ RSpec.describe "LogParser" do
   end
 
   describe 'extracting data from each log line' do
-    # it 'should identify the url in each line' do
-    #   extracted_array = @log_parser.convert_to_array
-    #   expect(@log_parser.get_url(extracted_array[0])).to eq("/help_page/1")
-    # end
+    it 'should identify the url in each line' do
+      extracted_array = @log_parser.convert_to_array
+      expect(@log_parser.get_url(extracted_array[0])).to eq("/help_page/1")
+    end
 
     it 'should identify the ip address in each line'
 

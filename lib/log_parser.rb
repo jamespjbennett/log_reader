@@ -13,7 +13,7 @@ class LogParser
   end
 
   def get_url(line)
-      binding.pry
+    line.match(/(\/(\w*))+/).to_s
   end
 
 end
