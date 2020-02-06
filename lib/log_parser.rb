@@ -16,4 +16,9 @@ class LogParser
     line.match(/(\/(\w*))+/).to_s
   end
 
+  def get_ip(line)
+    line.match(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/).to_s
+  end
+
+
 end
