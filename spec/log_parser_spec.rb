@@ -8,6 +8,7 @@ RSpec.describe "LogParser" do
     @tempfile.read
     @tempfile.rewind
     @log_parser = LogParser.new(@tempfile)
+    @url_array = ["/help_page/1", "/contact", "/home", "/about/2"]
   end
 
   describe "initialize" do
@@ -39,7 +40,10 @@ RSpec.describe "LogParser" do
   describe 'extracting data from each log line' do
     it 'should identify the url in each line' do
       extracted_array = @log_parser.convert_to_array
-      expect(@log_parser.get_url(extracted_array[0])).to eq("/help_page/1")
+      @url_array.each_with_index do |url, index|
+        expect(@log_parser.get_url(extracted_array[index])).to eq(url)
+      end
+
     end
 
     it 'should identify the ip address in each line'
