@@ -12,6 +12,11 @@ RSpec.describe "LogParser" do
       tempfile = Tempfile.new([ 'foobar', '.log' ])
       expect(LogParser.new(tempfile).instance_variable_get(:@file)).to eq(tempfile)
     end
+
+    it 'should fail to initialize without a file' do
+      expected_output = "File doesn't exist!\n"
+      expect{LogParser.new(nil)}.to output(expected_output).to_stdout
+    end
   end
 
   it 'should convert the file into an array'
