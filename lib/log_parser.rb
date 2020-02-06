@@ -1,6 +1,7 @@
 class LogParser
 
-  def initialize()
+  def initialize(file)
+    @file = file
     @sorted_data_object = {}
   end
 

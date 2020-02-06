@@ -4,7 +4,8 @@ RSpec.describe "LogParser" do
 
   describe "initialize" do
     it 'should initialize with an empty object instance variable' do
-      expect(LogParser.new.instance_variable_get(:@sorted_data_object)).to eq({})
+      tempfile = Tempfile.new([ 'foobar', '.log' ])
+      expect(LogParser.new(tempfile).instance_variable_get(:@sorted_data_object)).to eq({})
     end
 
     it 'should initialize with a provided file instance variable' do
