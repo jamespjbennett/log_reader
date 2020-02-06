@@ -1,3 +1,5 @@
+require_relative '../lib/log_parser'
+
 RSpec.describe "LogParser" do
 
   describe "initialize" do
