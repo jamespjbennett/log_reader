@@ -1,3 +1,5 @@
+require 'pry'
+
 class LogParser
 
   def initialize(file)
@@ -8,6 +10,10 @@ class LogParser
 
   def convert_to_array
     @file.read.split("\n")
+  end
+
+  def get_url(line)
+      binding.pry
   end
 
 end
