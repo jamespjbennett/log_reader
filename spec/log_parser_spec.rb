@@ -57,6 +57,9 @@ RSpec.describe "LogParser" do
   end
 
 
-  it 'should counts unique web address occurances'
-  it 'should count unique web address occurances'
+  describe 'generating sorte data object' do
+    it 'should counts unique web address occurances'
+    it 'should count unique web address occurances'    
+  end
+
 end
