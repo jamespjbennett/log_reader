@@ -4,12 +4,12 @@ RSpec.describe "LogParser" do
 
   before(:each) do
     @tempfile = Tempfile.new([ 'foobar', '.log' ])
-    @tempfile.write("/help_page/1 126.318.035.038\n/contact 184.123.665.067\n/home 184.123.665.067\n/about/2 444.701.448.104")
+    @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.040\n/contact 184.123.665.067\n/contact 184.123.665.065\n/home 184.123.665.067\n/about/2 444.701.448.104")
     @tempfile.read
     @tempfile.rewind
     @log_parser = LogParser.new(@tempfile)
-    @url_array = ["/help_page/1", "/contact", "/home", "/about/2"]
-    @ip_array = ["126.318.035.038", "184.123.665.067", "184.123.665.067", "444.701.448.104"]
+    @url_array = ["/help_page/1", "/help_page/1", "/help_page/1", "/contact", "/contact",  "/home", "/about/2"]
+    @ip_array = ["126.318.035.038", "126.318.035.039", "126.318.035.040", "184.123.665.067", "184.123.665.065", "184.123.665.067", "444.701.448.104"]
   end
 
   describe "initialize" do
@@ -34,7 +34,7 @@ RSpec.describe "LogParser" do
     end
 
     it 'should produce an array with a length of 4' do
-       expect(@log_parser.convert_to_array.length).to eq(4)
+       expect(@log_parser.convert_to_array.length).to eq(7)
     end
   end
 
