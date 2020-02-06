@@ -9,6 +9,7 @@ RSpec.describe "LogParser" do
     @tempfile.rewind
     @log_parser = LogParser.new(@tempfile)
     @url_array = ["/help_page/1", "/contact", "/home", "/about/2"]
+    @ip_array = ["126.318.035.038", "184.123.665.067", "184.123.665.067", "444.701.448.104"]
   end
 
   describe "initialize" do
@@ -46,7 +47,12 @@ RSpec.describe "LogParser" do
 
     end
 
-    it 'should identify the ip address in each line'
+    it 'should identify the ip address in each line' do
+      extracted_array = @log_parser.convert_to_array
+      @ip_array.each_with_index do |ip, index|
+        expect(@log_parser.get_ip(extracted_array[index])).to eq(ip)
+      end
+    end
 
   end
 
