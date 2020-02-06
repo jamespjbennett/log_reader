@@ -2,15 +2,18 @@ require_relative '../lib/log_parser'
 
 RSpec.describe "LogParser" do
 
+  before(:each) do
+    tempfile = Tempfile.new([ 'foobar', '.log' ])
+    @log_parser = LogParser.new(tempfile)
+  end
+
   describe "initialize" do
     it 'should initialize with an empty object instance variable' do
-      tempfile = Tempfile.new([ 'foobar', '.log' ])
-      expect(LogParser.new(tempfile).instance_variable_get(:@sorted_data_object)).to eq({})
+      expect(@log_parser.instance_variable_get(:@sorted_data_object)).to eq({})
     end
 
     it 'should initialize with a provided file instance variable' do
-      tempfile = Tempfile.new([ 'foobar', '.log' ])
-      expect(LogParser.new(tempfile).instance_variable_get(:@file)).to eq(tempfile)
+      expect(@log_parser.instance_variable_get(:@file)).to eq(tempfile)
     end
 
     it 'should fail to initialize without a file' do
@@ -19,7 +22,10 @@ RSpec.describe "LogParser" do
     end
   end
 
-  it 'should convert the file into an array'
+  it 'should convert the file into an array' do
+
+  end
+
   it 'should identify the url in each line'
   it 'should identify the ip address in each line'
   it 'should counts unique web address occurances'
