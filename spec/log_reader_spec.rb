@@ -7,6 +7,9 @@ RSpec.describe "LogReader" do
       expected_output = "File doesn't exist!\n"
       expect{LogReader.new.run "/fake/file_path"}.to output(expected_output).to_stdout
     end
-    it 'should return if the provided file is not a log file'
+    it 'should return if the provided file is not a log file' do
+      expected_output = "File is not a log file!\n"
+      expect{LogReader.new.run "/fake/file_path.txt"}.to output(expected_output).to_stdout
+    end
   end
 end
