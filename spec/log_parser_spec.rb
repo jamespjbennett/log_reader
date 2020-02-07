@@ -57,9 +57,13 @@ RSpec.describe "LogParser" do
   end
 
 
-  describe 'generating sorte data object' do
-    it 'should counts unique web address occurances'
-    it 'should count unique web address occurances'    
+  describe 'generating sorted data object' do
+    it 'should populate sorted data object with the log file data' do
+      @log_parser.populate_sorted_data_object
+      expect(@log_parser.instance_variable_get(:@sorted_data_object)).not_to eq({})
+    end
+    it 'should count unique web address occurances'
+    it 'should count unique ip address occurances'
   end
 
 end
