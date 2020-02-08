@@ -72,9 +72,9 @@ RSpec.describe "LogParser" do
       expect(@sorted_data_object["/home"][:page_visit_count]).to eq(1)
     end
     it 'should count unique ip address occurances' do
-      expect(@sorted_data_object["/help_page/1"][:unique_page_visits]).to eq(2)
-      expect(@sorted_data_object["/contact"][:unique_page_visits]).to eq(1)
-      expect(@sorted_data_object["/home"][:unique_page_visits]).to eq(1)
+      expect(@sorted_data_object["/help_page/1"][:unique_page_visits].length).to eq(2)
+      expect(@sorted_data_object["/contact"][:unique_page_visits].length).to eq(1)
+      expect(@sorted_data_object["/home"][:unique_page_visits].length).to eq(1)
     end
   end
 
