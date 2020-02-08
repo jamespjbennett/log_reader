@@ -22,7 +22,15 @@ class LogParser
 
   def populate_sorted_data_object
     log_array = convert_to_array
-    @sorted_data_object = log_array.each_with_object(Hash.new(0)) { |log_datum, hash_counter| hash_counter[log_datum] += 1 }
+    log_array.each do |log_datum|
+      url = get_url(log_datum)
+      if @sorted_data_object[url]
+        @sorted_data_object[url][:page_visit_count] += 1
+      else
+        @sorted_data_object[url] = {}
+        @sorted_data_object[url][:page_visit_count] = 1
+      end
+    end 
   end
 
 
