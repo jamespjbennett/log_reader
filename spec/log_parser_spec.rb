@@ -4,12 +4,12 @@ RSpec.describe "LogParser" do
 
   before(:each) do
     @tempfile = Tempfile.new([ 'foobar', '.log' ])
-    @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.040\n/contact 184.123.665.067\n/contact 184.123.665.065\n/home 184.123.665.067\n/about/2 444.701.448.104")
+    @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.039\n/contact 184.123.665.067\n/contact 184.123.665.067\n/home 184.123.665.067\n/about/2 444.701.448.104")
     @tempfile.read
     @tempfile.rewind
     @log_parser = LogParser.new(@tempfile)
     @url_array = ["/help_page/1", "/help_page/1", "/help_page/1", "/contact", "/contact",  "/home", "/about/2"]
-    @ip_array = ["126.318.035.038", "126.318.035.039", "126.318.035.040", "184.123.665.067", "184.123.665.065", "184.123.665.067", "444.701.448.104"]
+    @ip_array = ["126.318.035.038", "126.318.035.039", "126.318.035.039", "184.123.665.067", "184.123.665.067", "184.123.665.067", "444.701.448.104"]
   end
 
   describe "initialize" do
@@ -72,7 +72,9 @@ RSpec.describe "LogParser" do
       expect(@sorted_data_object["/home"][:page_visit_count]).to eq(1)
     end
     it 'should count unique ip address occurances' do
-
+      expect(@sorted_data_object["/help_page/1"][:unique_page_visits]).to eq(2)
+      expect(@sorted_data_object["/contact"][:unique_page_visits]).to eq(1)
+      expect(@sorted_data_object["/home"][:unique_page_visits]).to eq(1)
     end
   end
 
