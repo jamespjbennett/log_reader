@@ -9,6 +9,13 @@ RSpec.describe "LogPresenter" do
     @tempfile.read
     @tempfile.rewind
     @log_parser = LogParser.new(@tempfile)
-    @parsed_log_data = @log_parser.populate_sorted_data_object 
+    @parsed_log_data = @log_parser.populate_sorted_data_object
+    @log_presenter = LogPresenter.new
+  end
+
+  describe 'ordering by page views' do
+    it 'should order parsed data by number of page visits' do
+
+    end
   end
 end
