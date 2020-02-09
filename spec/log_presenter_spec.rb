@@ -18,7 +18,6 @@ RSpec.describe "LogPresenter" do
   describe 'ordering by page views' do
     before(:each) do
       @sorted_by_page_view = @log_presenter.page_view_sort
-      @sorted_by_uniq_page_view = @log_presenter.uniq_page_view_sort
     end
 
     it 'should return a hash' do
@@ -33,11 +32,15 @@ RSpec.describe "LogPresenter" do
   end
 
   describe 'ordering by unique page views' do
+    before(:each) do
+      @sorted_by_uniq_page_view = @log_presenter.uniq_page_view_sort
+    end
     it 'should return a hash' do
       expect(@sorted_by_uniq_page_view.class).to eq(Hash)
     end
 
     it 'should sort by uniq page views' do
+      binding.pry
       expect(@sorted_by_uniq_page_view.keys.first).to eq("/contact")
       expect(@sorted_by_uniq_page_view.keys.last).to eq("/home")
     end
