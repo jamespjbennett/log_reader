@@ -5,7 +5,7 @@ require 'pry'
 RSpec.describe "LogPresenter" do
   before(:each) do
     @tempfile = Tempfile.new([ 'foobar', '.log' ])
-    @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.039\n/contact 184.123.665.067\n/contact 184.123.665.067\n/home 184.123.665.067\n/about/2 444.701.448.104")
+    @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.039\n/contact 184.123.665.067\n/contact 184.123.665.068\n/contact 184.123.665.069\n/home 184.123.665.065\n/home 184.123.665.065\n/home 184.123.665.065\n/about/2 444.701.448.104\n/about/2 444.701.448.105")
     @tempfile.read
     @tempfile.rewind
     @log_parser = LogParser.new(@tempfile)
@@ -16,8 +16,22 @@ RSpec.describe "LogPresenter" do
 
 
   describe 'ordering by page views' do
-    it 'should return a hash' do
-      expect(@log_presenter.page_view_sort.class).to eq(Hash)
+    before(:each) do
+      @sorted_by_page_view = @log_presenter.page_view_sort
     end
+
+    it 'should return a hash' do
+      expect(@sorted_by_page_view.class).to eq(Hash)
+    end
+
+
+    it 'should sort by page values' do
+      expect(@sorted_by_page_view.keys.first).to eq("/help_page/1")
+      expect(@sorted_by_page_view.keys.last).to eq("/about/2")
+    end
+  end
+
+  describe 'ordering by unique page views' do
+
   end
 end
