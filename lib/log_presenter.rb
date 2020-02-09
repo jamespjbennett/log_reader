@@ -16,4 +16,8 @@ class LogPresenter
     @log_data.sort{|a,b| b[1][:unique_page_visits].length <=> a[1][:unique_page_visits].length}.to_h
   end
 
+  def present_uniq_page_view_sort_stats
+    uniq_page_view_sort.each{|url, stats| puts "#{url} #{stats[:unique_page_visits].length} unique views"}
+  end
+
 end
