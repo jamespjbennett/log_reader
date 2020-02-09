@@ -30,17 +30,17 @@ RSpec.describe "LogParser" do
 
   describe 'converting to array' do
     it 'should convert the file into an array' do
-       expect(@log_parser.convert_to_array.class).to eq(Array)
+       expect(@log_parser.log_array_data.class).to eq(Array)
     end
 
     it 'should produce an array with a length of 4' do
-       expect(@log_parser.convert_to_array.length).to eq(7)
+       expect(@log_parser.log_array_data.length).to eq(7)
     end
   end
 
   describe 'extracting data from each log line' do
     it 'should identify the url in each line' do
-      extracted_array = @log_parser.convert_to_array
+      extracted_array = @log_parser.log_array_data
       @url_array.each_with_index do |url, index|
         expect(@log_parser.get_url(extracted_array[index])).to eq(url)
       end
@@ -48,7 +48,7 @@ RSpec.describe "LogParser" do
     end
 
     it 'should identify the ip address in each line' do
-      extracted_array = @log_parser.convert_to_array
+      extracted_array = @log_parser.log_array_data
       @ip_array.each_with_index do |ip, index|
         expect(@log_parser.get_ip(extracted_array[index])).to eq(ip)
       end

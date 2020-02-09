@@ -8,7 +8,7 @@ class LogParser
     @sorted_data_object = {}
   end
 
-  def convert_to_array
+  def log_array_data
     @file.read.split("\n")
   end
 
@@ -21,9 +21,6 @@ class LogParser
   end
 
   def populate_sorted_data_object
-    log_array = convert_to_array
-    uniq_urls_to_reference = log_array.map{|log_datum| get_url(log_datum)}.uniq
-
 
     # log_array.each do |log_datum|
     #   url = get_url(log_datum)
@@ -34,6 +31,10 @@ class LogParser
     #     initialize_view_stats_for_url(url, ip)
     #   end
     # end
+  end
+
+  def uniq_urls_to_reference
+    log_array_data.map{|log_datum| get_url(log_datum)}.uniq
   end
 
 
