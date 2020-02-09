@@ -1,3 +1,6 @@
+require_relative '../lib/log_parser'
+require_relative '../lib/log_presenter'
+
 class LogReader
 
   def initialize(file)

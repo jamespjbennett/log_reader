@@ -1,0 +1,2 @@
+require './lib/log_reader'
+LogReader.new(ARGV.first).run
