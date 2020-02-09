@@ -1,5 +1,6 @@
 require 'pry'
 
+# CLASS TO TAKE THE PROVIDED LOG FILE AND CONVERT INTO DATA OBJECT
 class LogParser
 
   def initialize(file)
