@@ -17,7 +17,7 @@ RSpec.describe "LogPresenter" do
 
   describe 'ordering by page views' do
     it 'should return a hash' do
-      expect(@parsed_log_data.page_view_sort.class).to eq(Hash)
+      expect(@log_presenter.page_view_sort.class).to eq(Hash)
     end
   end
 end
