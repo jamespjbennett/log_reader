@@ -30,7 +30,7 @@ RSpec.describe "LogPresenter" do
       expect(@sorted_by_page_view.keys.last).to eq("/about/2")
     end
 
-    it 'should print out formatted ordering of log lage view stats' do
+    it 'should print out formatted ordering of log page view stats' do
       @log_presenter.present_page_view_sort_stats
       expected_output = "/help_page/1 5 visits\n/contact 4 visits\n/home 3 visits\n/about/2 2 visits\n"
       expect{@log_presenter.present_page_view_sort_stats}.to output(expected_output).to_stdout
@@ -48,6 +48,12 @@ RSpec.describe "LogPresenter" do
     it 'should sort by uniq page views' do
       expect(@sorted_by_uniq_page_view.keys.first).to eq("/contact")
       expect(@sorted_by_uniq_page_view.keys.last).to eq("/home")
+    end
+
+    it 'should print out formatted ordering of log uniq page view stats' do
+      @log_presenter.present_uniq_page_view_sort_stats
+      expected_output = "/contact 3 unique views \n/about/2 2 unique views \n/help_page/1 2 unique views\n/home 1 unique views\n"
+      expect{@log_presenter.present_page_view_sort_stats}.to output(expected_output).to_stdout
     end
 
   end
