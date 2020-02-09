@@ -40,13 +40,13 @@ RSpec.describe "LogParser" do
 
   describe 'converting array data into a readable array of hashes' do
     it 'should convert log data into an array of hashes' do
-      expect(@log_parser.get_log_with_data_split.map(&:class).uniq).to eq([Hash])
+      expect(@log_parser.log_with_data_split.map(&:class).uniq).to eq([Hash])
     end
   end
 
   describe 'extracting data from each log line' do
     it 'should identify the url in each line' do
-      extracted_array = @log_parser.log_array_data
+      extracted_array = @log_parser.instance_variable_get(:@log_array_data)
       @url_array.each_with_index do |url, index|
         expect(@log_parser.get_url(extracted_array[index])).to eq(url)
       end
@@ -54,7 +54,7 @@ RSpec.describe "LogParser" do
     end
 
     it 'should identify the ip address in each line' do
-      extracted_array = @log_parser.log_array_data
+      extracted_array = @log_parser.instance_variable_get(:@log_array_data)
       @ip_array.each_with_index do |ip, index|
         expect(@log_parser.get_ip(extracted_array[index])).to eq(ip)
       end
