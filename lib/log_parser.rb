@@ -5,10 +5,11 @@ class LogParser
   def initialize(file)
     return puts "File doesn't exist!" if !file
     @file = file
+    @log_array_data = get_log_array_data
     @sorted_data_object = {}
   end
 
-  def log_array_data
+  def get_log_array_data
     @file.read.split("\n")
   end
 
@@ -21,25 +22,29 @@ class LogParser
   end
 
   def populate_sorted_data_object
-
-
-    # log_array.each do |log_datum|
-    #   url = get_url(log_datum)
-    #   ip = get_ip(log_datum)
-    #   if data_exists_for_url(url)
-    #     increment_view_stats_for_url(url, ip)
-    #   else
-    #     initialize_view_stats_for_url(url, ip)
-    #   end
-    # end
+    uniq_urls_to_reference = get_uniq_urls_to_reference
+    uniq_urls_to_reference.each do |uniq_url|
+      @sorted_data_object[uniq_url] = {}
+      @sorted_data_object[uniq_url][:page_visit_count] = occurances_of_page_visit(uniq_url)
+      @sorted_data_object[uniq_url][:unique_page_visits] = unique_page_visits(uniq_url)
+    end
   end
 
-  def uniq_urls_to_reference
-    log_array_data.map{|log_datum| get_url(log_datum)}.uniq
+  def get_uniq_urls_to_reference
+    @log_array_data.map{|log_datum| get_url(log_datum)}.uniq
   end
 
-  def log_with_data_split
-    log_array_data.map{|log_datum| {url: get_url(log_datum), ip: get_ip(log_datum)}}
+  def get_log_with_data_split
+    @log_array_data.map{|log_datum| {url: get_url(log_datum), ip: get_ip(log_datum)}}
+  end
+
+  def occurances_of_page_visit(url)
+    log_with_data_split = get_log_with_data_split
+    log_with_data_split.select{|log_datum| log_datum[:url] == url}
+  end
+
+  def unique_page_visits(url)
+    occurances_of_page_visit(url).map{|log_datum| log_datum[:ip]}.uniq
   end
 
 
