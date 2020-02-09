@@ -18,7 +18,6 @@ RSpec.describe "LogPresenter" do
   describe 'ordering by page views' do
     before(:each) do
       @sorted_by_page_view = @log_presenter.page_view_sort
-      @present_sorted_by_page_view = @log_presenter.present_page_view_sort_stats
     end
 
     it 'should return a hash' do
@@ -32,8 +31,9 @@ RSpec.describe "LogPresenter" do
     end
 
     it 'should print out formatted ordering of log lage view stats' do
-      expected_output = "/help_page/1 5 visits\n/contact 4 visits\n/home 3 visits\n/about/2 2 visits"
-      expect{@present_sorted_by_page_view}.to output(expected_output).to_stdout
+      @log_presenter.present_page_view_sort_stats
+      expected_output = "/help_page/1 5 visits\n/contact 4 visits\n/home 3 visits\n/about/2 2 visits\n"
+      expect{@log_presenter.present_page_view_sort_stats}.to output(expected_output).to_stdout
     end
   end
 
