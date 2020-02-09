@@ -3,6 +3,8 @@ require 'pry'
 # CLASS TO TAKE THE PROVIDED LOG FILE AND CONVERT INTO DATA OBJECT
 class LogParser
 
+  attr_reader :sorted_data_object
+  
   def initialize(file)
     return puts "File doesn't exist!" if !file
     @file = file

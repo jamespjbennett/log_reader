@@ -8,7 +8,8 @@ class LogReader
   end
 
   def run
-
+    @log_parser.populate_sorted_data_object
+    LogPresenter.new(@log_parser.sorted_data_object).run
   end
 
 end
