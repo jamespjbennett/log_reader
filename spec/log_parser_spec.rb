@@ -38,6 +38,12 @@ RSpec.describe "LogParser" do
     end
   end
 
+  describe 'converting array data into a readable array of hashes' do
+    it 'should convert log data into an array of hashes' do
+      expect(@log_parser.log_with_data_split.map(&:class).uniq).to eq([Hash])
+    end
+  end
+
   describe 'extracting data from each log line' do
     it 'should identify the url in each line' do
       extracted_array = @log_parser.log_array_data
@@ -57,25 +63,25 @@ RSpec.describe "LogParser" do
   end
 
 
-  describe 'generating sorted data object' do
-    before(:each) do
-      @log_parser.populate_sorted_data_object
-      @sorted_data_object = @log_parser.instance_variable_get(:@sorted_data_object)
-    end
-
-    it 'should populate sorted data object with the log file data' do
-      expect(@sorted_data_object).not_to eq({})
-    end
-    it 'should count unique web address occurances' do
-      expect(@sorted_data_object["/help_page/1"][:page_visit_count]).to eq(3)
-      expect(@sorted_data_object["/contact"][:page_visit_count]).to eq(2)
-      expect(@sorted_data_object["/home"][:page_visit_count]).to eq(1)
-    end
-    it 'should count unique ip address occurances' do
-      expect(@sorted_data_object["/help_page/1"][:unique_page_visits].length).to eq(2)
-      expect(@sorted_data_object["/contact"][:unique_page_visits].length).to eq(1)
-      expect(@sorted_data_object["/home"][:unique_page_visits].length).to eq(1)
-    end
-  end
+  # describe 'generating sorted data object' do
+  #   before(:each) do
+  #     @log_parser.populate_sorted_data_object
+  #     @sorted_data_object = @log_parser.instance_variable_get(:@sorted_data_object)
+  #   end
+  #
+  #   it 'should populate sorted data object with the log file data' do
+  #     expect(@sorted_data_object).not_to eq({})
+  #   end
+  #   it 'should count unique web address occurances' do
+  #     expect(@sorted_data_object["/help_page/1"][:page_visit_count]).to eq(3)
+  #     expect(@sorted_data_object["/contact"][:page_visit_count]).to eq(2)
+  #     expect(@sorted_data_object["/home"][:page_visit_count]).to eq(1)
+  #   end
+  #   it 'should count unique ip address occurances' do
+  #     expect(@sorted_data_object["/help_page/1"][:unique_page_visits].length).to eq(2)
+  #     expect(@sorted_data_object["/contact"][:unique_page_visits].length).to eq(1)
+  #     expect(@sorted_data_object["/home"][:unique_page_visits].length).to eq(1)
+  #   end
+  # end
 
 end

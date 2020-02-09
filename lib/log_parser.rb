@@ -22,6 +22,7 @@ class LogParser
 
   def populate_sorted_data_object
 
+
     # log_array.each do |log_datum|
     #   url = get_url(log_datum)
     #   ip = get_ip(log_datum)
@@ -35,6 +36,10 @@ class LogParser
 
   def uniq_urls_to_reference
     log_array_data.map{|log_datum| get_url(log_datum)}.uniq
+  end
+
+  def log_with_data_split
+    log_array_data.map{|log_datum| {url: get_url(log_datum), ip: get_ip(log_datum)}}
   end
 
 
