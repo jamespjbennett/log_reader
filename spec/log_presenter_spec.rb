@@ -40,7 +40,6 @@ RSpec.describe "LogPresenter" do
     end
 
     it 'should sort by uniq page views' do
-      binding.pry
       expect(@sorted_by_uniq_page_view.keys.first).to eq("/contact")
       expect(@sorted_by_uniq_page_view.keys.last).to eq("/home")
     end

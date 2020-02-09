@@ -9,7 +9,7 @@ class LogPresenter
   end
 
   def uniq_page_view_sort
-    @log_data.sort{|a,b| b[1][:unique_page_visits] <=> a[1][:unique_page_visits]}.to_h
+    @log_data.sort{|a,b| b[1][:unique_page_visits].length <=> a[1][:unique_page_visits].length}.to_h
   end
 
 end
