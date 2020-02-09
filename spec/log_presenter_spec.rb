@@ -9,13 +9,15 @@ RSpec.describe "LogPresenter" do
     @tempfile.read
     @tempfile.rewind
     @log_parser = LogParser.new(@tempfile)
-    @parsed_log_data = @log_parser.populate_sorted_data_object
-    @log_presenter = LogPresenter.new
+    @log_parser.populate_sorted_data_object
+    @parsed_log_data = @log_parser.instance_variable_get(:@sorted_data_object)
+    @log_presenter = LogPresenter.new(@parsed_log_data )
   end
 
-  describe 'ordering by page views' do
-    it 'should order parsed data by number of page visits' do
 
+  describe 'ordering by page views' do
+    it 'should return a hash' do
+      expect(@parsed_log_data.page_view_sort.class).to eq(Hash)
     end
   end
 end
