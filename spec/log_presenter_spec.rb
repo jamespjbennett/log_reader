@@ -11,13 +11,14 @@ RSpec.describe "LogPresenter" do
     @log_parser = LogParser.new(@tempfile)
     @log_parser.populate_sorted_data_object
     @parsed_log_data = @log_parser.instance_variable_get(:@sorted_data_object)
-    @log_presenter = LogPresenter.new(@parsed_log_data )
+    @uniq_page_view_presenter = UniqPageViewPresenter.new
+    @total_page_view_presenter = TotalPageViewPresenter.new
   end
 
 
   describe 'ordering by page views' do
     before(:each) do
-      @sorted_by_page_view = @log_presenter.page_view_sort
+      @sorted_by_page_view = @total_page_view_presenter.sort_data(@parsed_log_data)
     end
 
     it 'should return a hash' do
@@ -31,9 +32,8 @@ RSpec.describe "LogPresenter" do
     end
 
     it 'should print out formatted ordering of log page view stats' do
-      @log_presenter.present_page_view_sort_stats
       expected_output = "/help_page/1 5 visits\n/contact 4 visits\n/home 3 visits\n/about/2 2 visits\n"
-      expect{@log_presenter.present_page_view_sort_stats}.to output(expected_output).to_stdout
+      expect{@total_page_view_presenter.present}.to output(expected_output).to_stdout
     end
   end
 
