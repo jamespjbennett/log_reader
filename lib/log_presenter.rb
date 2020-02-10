@@ -21,3 +21,11 @@ class LogPresenter
   end
 
 end
+
+
+class UniqPageViewPresenter < LogPresenter
+
+end
+
+class TotalPageViewPresenter < LogPresenter
+end
