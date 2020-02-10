@@ -7,7 +7,7 @@ class LogParser
 
   def initialize(file)
     return puts "File doesn't exist!" if !file
-    @file = file
+    @file = File.open(file)
     @log_array_data = get_log_array_data
     @sorted_data_object = {}
   end

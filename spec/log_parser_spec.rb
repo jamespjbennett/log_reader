@@ -7,7 +7,7 @@ RSpec.describe "LogParser" do
     @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.039\n/contact 184.123.665.067\n/contact 184.123.665.067\n/home 184.123.665.067\n/about/2 444.701.448.104")
     @tempfile.read
     @tempfile.rewind
-    @log_parser = LogParser.new(@tempfile)
+    @log_parser = LogParser.new(@tempfile.path)
     @url_array = ["/help_page/1", "/help_page/1", "/help_page/1", "/contact", "/contact",  "/home", "/about/2"]
     @ip_array = ["126.318.035.038", "126.318.035.039", "126.318.035.039", "184.123.665.067", "184.123.665.067", "184.123.665.067", "444.701.448.104"]
   end
@@ -18,7 +18,7 @@ RSpec.describe "LogParser" do
     end
 
     it 'should initialize with a provided file instance variable' do
-      expect(@log_parser.instance_variable_get(:@file)).to eq(@tempfile)
+      expect(@log_parser.instance_variable_get(:@file).path).to eq(@tempfile.path)
     end
 
     it 'should fail to initialize without a file' do
