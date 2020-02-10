@@ -4,7 +4,7 @@ require 'pry'
 class LogParser
 
   attr_reader :sorted_data_object
-  
+
   def initialize(file)
     return puts "File doesn't exist!" if !file
     @file = file
