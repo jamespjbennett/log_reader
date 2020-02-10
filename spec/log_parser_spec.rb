@@ -4,10 +4,15 @@ RSpec.describe "LogParser" do
 
   before(:each) do
     @tempfile = Tempfile.new([ 'foobar', '.log' ])
+    @invalid_file = Tempfile.new([ 'foobarfail', '.log' ])
     @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.039\n/contact 184.123.665.067\n/contact 184.123.665.067\n/home 184.123.665.067\n/about/2 444.701.448.104")
+    @invalid_file.write("/help_page/1 126.318.035.038\nINVALID MESSAGE 45.5.3")
     @tempfile.read
+    @invalid_file.read
     @tempfile.rewind
+    @invalid_file.rewind
     @log_parser = LogParser.new(@tempfile.path)
+    @log_parser_with_invalid_data= LogParser.new(@invalid_file.path)
     @url_array = ["/help_page/1", "/help_page/1", "/help_page/1", "/contact", "/contact",  "/home", "/about/2"]
     @ip_array = ["126.318.035.038", "126.318.035.039", "126.318.035.039", "184.123.665.067", "184.123.665.067", "184.123.665.067", "444.701.448.104"]
   end
@@ -87,7 +92,9 @@ RSpec.describe "LogParser" do
 
     context 'with invalid data' do
       it 'should not populate a line with any nil values if valid values arent recognized' do
-        
+        @log_parser_with_invalid_data.populate_sorted_data_object
+        sorted_data_object = @log_parser_with_invalid_data.instance_variable_get(:@sorted_data_object)
+        expect(sorted_data_object.keys.length).to eq(1)
       end
     end
   end
