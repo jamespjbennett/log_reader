@@ -41,6 +41,14 @@ RSpec.describe "LogParser" do
     it 'should produce an array with a length of 4' do
        expect(@log_parser.instance_variable_get(:@log_array_data).length).to eq(7)
     end
+
+    it 'should not populate a line with any nil values if valid values arent recognized' do
+      expect(@log_parser_with_invalid_data.instance_variable_get(:@log_array_data).length).to eq(1)
+    end
+
+    it 'should not return an error if there are no valid lines to parse' do
+
+    end
   end
 
   describe 'converting array data into a readable array of hashes' do
@@ -90,13 +98,6 @@ RSpec.describe "LogParser" do
       end
     end
 
-    context 'with invalid data' do
-      it 'should not populate a line with any nil values if valid values arent recognized' do
-        @log_parser_with_invalid_data.populate_sorted_data_object
-        sorted_data_object = @log_parser_with_invalid_data.instance_variable_get(:@sorted_data_object)
-        expect(sorted_data_object.keys.length).to eq(1)
-      end
-    end
   end
 
 end
