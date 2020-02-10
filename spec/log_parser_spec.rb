@@ -103,6 +103,17 @@ RSpec.describe "LogParser" do
       end
     end
 
+    context 'with invalid data' do
+      it 'should return an error if there are no valid lines to parse' do
+        empty_file = Tempfile.new([ 'foobarempty', '.log' ])
+        empty_file.write(" ")
+        empty_file.read
+        empty_file.rewind
+        log_parser = LogParser.new(empty_file.path)
+        expect{log_parser.populate_sorted_data_object}.not_to raise_error
+      end
+    end
+
   end
 
 end

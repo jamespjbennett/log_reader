@@ -3,7 +3,7 @@ require 'pry'
 # CLASS TO TAKE THE PROVIDED LOG FILE AND CONVERT INTO DATA OBJECT
 class LogParser
 
-  attr_reader :sorted_data_object, :log_array_data
+  attr_reader :sorted_data_object
 
   def initialize(file)
     return puts "File doesn't exist!" if !file
@@ -14,8 +14,7 @@ class LogParser
 
   def get_log_array_data
     valid_lines = @file.read.split("\n").select{|line| !valid_line?(line).empty?}
-    # return puts "No data for this file" if valid_lines.length == 0
-    raise Exception.new("No data for this file") if valid_lines.length == 0
+    return puts "No data for this file" if valid_lines.length == 0
     valid_lines
   end
 
@@ -32,10 +31,12 @@ class LogParser
   end
 
   def populate_sorted_data_object
-    uniq_urls_to_reference.each do |uniq_url|
-      @sorted_data_object[uniq_url] = {}
-      @sorted_data_object[uniq_url][:page_visit_count] = occurances_of_page_visit(uniq_url).count
-      @sorted_data_object[uniq_url][:unique_page_visits] = unique_page_visits(uniq_url)
+    if @log_array_data
+      uniq_urls_to_reference.each do |uniq_url|
+        @sorted_data_object[uniq_url] = {}
+        @sorted_data_object[uniq_url][:page_visit_count] = occurances_of_page_visit(uniq_url).count
+        @sorted_data_object[uniq_url][:unique_page_visits] = unique_page_visits(uniq_url)
+      end
     end
   end
 
