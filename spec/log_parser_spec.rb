@@ -7,10 +7,10 @@ RSpec.describe "LogParser" do
     @invalid_file = Tempfile.new([ 'foobarfail', '.log' ])
     @tempfile.write("/help_page/1 126.318.035.038\n/help_page/1 126.318.035.039\n/help_page/1 126.318.035.039\n/contact 184.123.665.067\n/contact 184.123.665.067\n/home 184.123.665.067\n/about/2 444.701.448.104")
     @invalid_file.write("/help_page/1 126.318.035.038\nINVALID MESSAGE 45.5.3")
-    @tempfile.read
-    @invalid_file.read
-    @tempfile.rewind
-    @invalid_file.rewind
+    [@tempfile, @invalid_file].each do |file|
+      file.read
+      file.rewind
+    end
     @log_parser = LogParser.new(@tempfile.path)
     @log_parser_with_invalid_data= LogParser.new(@invalid_file.path)
     @url_array = ["/help_page/1", "/help_page/1", "/help_page/1", "/contact", "/contact",  "/home", "/about/2"]
@@ -46,8 +46,13 @@ RSpec.describe "LogParser" do
       expect(@log_parser_with_invalid_data.instance_variable_get(:@log_array_data).length).to eq(1)
     end
 
-    it 'should not return an error if there are no valid lines to parse' do
-
+    it 'should return an error if there are no valid lines to parse' do
+      empty_file = Tempfile.new([ 'foobarempty', '.log' ])
+      empty_file.write(" ")
+      empty_file.read
+      empty_file.rewind
+      expected_output = "No data for this file"
+      expect{LogParser.new(empty_file.path)}.to output(expected_output).to_stdout
     end
   end
 
