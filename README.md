@@ -1,4 +1,4 @@
-### Log Reader
+# Log Reader
 
 A program to parse a log file and return an ordered list of viewing data, currently:
 - counting and sorting by total page view
