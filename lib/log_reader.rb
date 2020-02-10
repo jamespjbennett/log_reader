@@ -1,6 +1,7 @@
 require_relative '../lib/log_parser'
 require_relative '../lib/log_presenter'
 
+# Class to take file and call functions to  present the stats
 class LogReader
 
   def initialize(uniq_page_view_presenter = UniqPageViewPresenter.new, total_page_view_presenter = TotalPageViewPresenter.new)
