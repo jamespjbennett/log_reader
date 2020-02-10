@@ -39,10 +39,12 @@ RSpec.describe "LogParser" do
     end
 
     it 'should produce an array with a length of 4' do
-       expect(@log_parser.instance_variable_get(:@log_array_data).length).to eq(7)
+      @log_parser.get_log_array_data
+      expect(@log_parser.instance_variable_get(:@log_array_data).length).to eq(7)
     end
 
     it 'should not populate a line with any nil values if valid values arent recognized' do
+      @log_parser_with_invalid_data.get_log_array_data
       expect(@log_parser_with_invalid_data.instance_variable_get(:@log_array_data).length).to eq(1)
     end
 
@@ -52,17 +54,23 @@ RSpec.describe "LogParser" do
       empty_file.read
       empty_file.rewind
       expected_output = "No data for this file\n"
-      expect{LogParser.new(empty_file.path)}.to output(expected_output).to_stdout
+      empty_data_log_parser = LogParser.new(empty_file.path)
+      expect{empty_data_log_parser.get_log_array_data}.to output(expected_output).to_stdout
     end
   end
 
   describe 'converting array data into a readable array of hashes' do
     it 'should convert log data into an array of hashes' do
+      @log_parser.get_log_array_data
       expect(@log_parser.log_with_data_split.map(&:class).uniq).to eq([Hash])
     end
   end
 
   describe 'extracting data from each log line' do
+    before(:each) do
+      @log_parser.get_log_array_data
+    end
+
     it 'should identify the url in each line' do
       extracted_array = @log_parser.instance_variable_get(:@log_array_data)
       @url_array.each_with_index do |url, index|
