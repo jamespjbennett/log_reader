@@ -13,7 +13,7 @@ class LogParser
   end
 
   def get_log_array_data
-    @file.read.split("\n")
+    valid_lines = @file.read.split("\n").select{|line| !valid_line?(line).empty?}
   end
 
   def get_url(line)
@@ -24,13 +24,16 @@ class LogParser
     line.match(/\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b/).to_s
   end
 
+  def valid_line?(line)
+    get_url(line) && get_ip(line)
+  end
+
   def populate_sorted_data_object
     uniq_urls_to_reference.each do |uniq_url|
       @sorted_data_object[uniq_url] = {}
       @sorted_data_object[uniq_url][:page_visit_count] = occurances_of_page_visit(uniq_url).count
       @sorted_data_object[uniq_url][:unique_page_visits] = unique_page_visits(uniq_url)
     end
-    binding.pry
   end
 
   def uniq_urls_to_reference
