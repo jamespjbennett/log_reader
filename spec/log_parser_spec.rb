@@ -51,7 +51,7 @@ RSpec.describe "LogParser" do
       empty_file.write(" ")
       empty_file.read
       empty_file.rewind
-      expected_output = "No data for this file"
+      expected_output = "No data for this file\n"
       expect{LogParser.new(empty_file.path)}.to output(expected_output).to_stdout
     end
   end

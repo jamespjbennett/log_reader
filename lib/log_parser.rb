@@ -14,6 +14,8 @@ class LogParser
 
   def get_log_array_data
     valid_lines = @file.read.split("\n").select{|line| !valid_line?(line).empty?}
+    return puts "No data for this file" if valid_lines.length == 0
+    valid_lines
   end
 
   def get_url(line)
