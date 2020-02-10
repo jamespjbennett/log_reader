@@ -1,2 +1,2 @@
 require './lib/log_reader'
-log_reader = LogReader.new(ARGV.first).run
+log_reader = LogReader.new.run ARGV.first
